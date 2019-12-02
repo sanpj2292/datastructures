@@ -14,6 +14,9 @@ class Node:
             '''
         return disp
 
+    def isLeaf(self):
+        return (self.leftChild is None and self.rightChild is None)
+
 
 class BST:
     def __init__(self):
@@ -148,6 +151,49 @@ class BST:
                 return otherdata
             return ancestorList[l-1]
 
+    def rotateRight(self, data):
+        node = self.root
+        self.rightRotate(node, data)
+
+    def rightRotate(self, node: Node, data):
+        if node:
+            if node.data == data:
+                # Rotate this Node to the right
+                try:
+                    if node.leftChild is None:
+                        raise ValueError(
+                            'Node\'s Left Node is a Leaf Node hence cannot be rotated')
+                except ValueError as e:
+                    print(e)
+                else:
+                    new_node = Node(node.data)
+                    new_node.rightChild = node.rightChild
+                    new_node.leftChild = node.leftChild.rightChild
+
+                    node.data = node.leftChild.data
+                    node.leftChild = node.leftChild.leftChild
+                    node.rightChild = new_node
+            else:
+                new_node = node.leftChild if data < node.data else node.rightChild
+                self.rightRotate(new_node, data)
+
+    def bfs_iterative(self):
+        '''
+        Breadth First Search Iterative Function
+        '''
+        queue = []
+        retElements = []
+        node = self.root
+        queue.append(node)
+        while(queue):
+            node = queue.pop(0)
+            retElements.append(node.data)
+            if node.leftChild or not node.isLeaf():
+                queue.append(node.leftChild)
+            if node.rightChild or not node.isLeaf():
+                queue.append(node.rightChild)
+        return retElements
+
 
 if __name__ == "__main__":
     # tree = BST()
@@ -173,9 +219,12 @@ if __name__ == "__main__":
     for i in elements:
         tree.insert(i)
     # print(tree._getAncestorNodesDataList(6))
-    print(tree.getNodeLevel(12))
-    print(tree.getLeastCommonAncestor(6, 12))
-    print(tree.getLeastCommonAncestor(10, 12))
-    print(tree.getLeastCommonAncestor(20, 6))
-    print(tree.getLeastCommonAncestor(18, 22))
-    print(tree.getLeastCommonAncestor(30, 30))
+    # print(tree.getNodeLevel(12))
+    # print(tree.getLeastCommonAncestor(6, 12))
+    # print(tree.getLeastCommonAncestor(10, 12))
+    # print(tree.getLeastCommonAncestor(20, 6))
+    # print(tree.getLeastCommonAncestor(18, 22))
+    # print(tree.getLeastCommonAncestor(30, 30))
+    # tree.rotateRight(10)
+    print(tree.bfs_iterative())
+    # print(tree.traverse())
