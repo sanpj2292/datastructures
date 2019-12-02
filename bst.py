@@ -194,6 +194,30 @@ class BST:
                 queue.append(node.rightChild)
         return retElements
 
+    def rotateLeft(self, data):
+        self.leftRotate(self.root, data)
+
+    def leftRotate(self, node: Node, data):
+        if node:
+            if node.data == data:
+                try:
+                    if node.rightChild is None:
+                        raise ValueError(
+                            'Node\'s Right Child is None hence cannot be rotated')
+                except ValueError as e:
+                    print(e)
+                else:
+                    new_node = Node(node.data)
+                    new_node.rightChild = node.rightChild.leftChild
+                    new_node.leftChild = node.leftChild
+
+                    node.data = node.rightChild.data
+                    node.rightChild = node.rightChild.rightChild
+                    node.leftChild = new_node
+            else:
+                node = node.leftChild if data < node.data else node.rightChild
+                self.leftRotate(node, data)
+
 
 if __name__ == "__main__":
     # tree = BST()
@@ -226,5 +250,6 @@ if __name__ == "__main__":
     # print(tree.getLeastCommonAncestor(18, 22))
     # print(tree.getLeastCommonAncestor(30, 30))
     # tree.rotateRight(10)
+    tree.rotateLeft(15)
     print(tree.bfs_iterative())
     # print(tree.traverse())
