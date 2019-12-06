@@ -24,6 +24,13 @@ def remove_dup_sorted_ll(l: LinkedList):
         nxt = nxt.next
 
 
+def moveEvenNodeProb_main():
+    ll = convertToLinkedList([1, 3, 5, 6, 89, 2, 45, 8, 34, 23, 74])
+    ll.printAll()
+    moveEvenNodeToEnd_Rev(ll)
+    ll.printAll()
+
+
 def moveEvenNodeToEnd_Rev(l: LinkedList):
     '''
         Move even nodes to the end of the list in reverse order
@@ -52,9 +59,51 @@ def moveEvenNodeToEnd_Rev(l: LinkedList):
     odd.next = even_ll.head
 
 
+def checkPalindrome(l: LinkedList):
+    '''
+        Check if a LinkedList is a Palindrome
+        Here we would use 2-pointer approach with Stack
+        First we will traverse till mid-point to know if the length of the LL is Odd or Even
+        For Example: 
+            ll =  1->3->2->3->1
+            MidNode is 2
+            Stack would not have 2,
+            now we would have to Iterate the 2nd half of LinkedList to knw if it indeed is 
+            Palindromic LinkedList
+
+        If midpoint is odd,
+            node = node.next
+        Otherwise
+            node is same as midNode
+    '''
+    node = l.head
+    if not node or not node.next:
+        return True
+    nxt = node.next
+    midInd = 0
+    i = 1
+    stack = []
+    while(nxt):
+        if i % 2 == 0:
+            stack.append(node.data)
+            node = node.next
+            midInd += 1
+        nxt = nxt.next
+        i += 1
+    if midInd % 2 == 0:
+        node = node.next
+    while(node):
+        if stack.pop(-1) != node.data:
+            break
+        node = node.next
+    return len(stack) == 0
+
+
 if __name__ == "__main__":
     # remove_dup_main()
-    ll = convertToLinkedList([1, 3, 5, 6, 89, 2, 45, 8, 34, 23, 74])
+    # ll = convertToLinkedList([1, 3, 2, 3, 1])
+    # ll = convertToLinkedList([1, 3, 2, 5, 1])
+    ll = convertToLinkedList(['R', 'A', 'D', 'A', 'R'])
     ll.printAll()
-    moveEvenNodeToEnd_Rev(ll)
-    ll.printAll()
+    print(checkPalindrome(ll))
+    # ll.printAll()
