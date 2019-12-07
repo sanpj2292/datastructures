@@ -1,6 +1,36 @@
 from linkedlist import LinkedList, convertToLinkedList, Node
 
 
+def clone_PalindromeCheck_Fns_Main():
+    # Palindrome check function
+    ll = convertToLinkedList([1, 3, 2, 3, 1])
+    ll = convertToLinkedList([1, 3, 2, 5, 1])
+    ll = convertToLinkedList(['R', 'A', 'D', 'A', 'R'])
+    ll.printAll()
+    print(checkPalindrome(ll))
+    # Clone Function Main
+    ll1 = ll.clone()
+    ll1.head.next.data = 'B'
+    print(f'll1: {ll1.head.next.data}')
+    print(f'll: {ll.head.next.data}')
+    # Pop Function
+    print(ll.pop())
+    # Delete Function
+    ll.delete()
+    ll.printAll()
+
+
+def insertIntoSortPos_main():
+    a = [1, 1, 2, 5, 5, 5, 7, 9, 9]
+    ll = convertToLinkedList(a)
+    ll.printAll()
+    ll.insert_to_sorted_pos(8)
+    ll.insert_to_sorted_pos(4)
+    ll.insert_to_sorted_pos(12)
+    ll.insert_to_sorted_pos(1.8)
+    ll.printAll()
+
+
 def remove_dup_main():
     sorted_ll = convertToLinkedList([1, 1, 1, 2, 4, 4, 6, 9, 9])
     print('Before Duplicates removal: ')
@@ -101,9 +131,4 @@ def checkPalindrome(l: LinkedList):
 
 if __name__ == "__main__":
     # remove_dup_main()
-    # ll = convertToLinkedList([1, 3, 2, 3, 1])
-    # ll = convertToLinkedList([1, 3, 2, 5, 1])
-    ll = convertToLinkedList(['R', 'A', 'D', 'A', 'R'])
-    ll.printAll()
-    print(checkPalindrome(ll))
-    # ll.printAll()
+    pass
