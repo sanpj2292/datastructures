@@ -1,6 +1,22 @@
 from linkedlist import LinkedList, convertToLinkedList, Node
 
 
+def moveLastNodeToFront(l: LinkedList):
+    node = l.head
+    if not node.next:
+        print('Cannot move the last node since the last node is first node')
+    else:
+        while(node.next.next):
+            node = node.next
+        # node will be the last-but one Node
+        lastNode = node.next
+        node.next = None
+        firstNode = l.head
+        lastNode.next = firstNode
+        l.head = lastNode
+        l.printAll()
+
+
 def split_into_two_lists(l: LinkedList):
     '''
     Split given linked list into two lists where each list 
@@ -69,8 +85,9 @@ if __name__ == "__main__":
     ll = convertToLinkedList([1, 2, 3, 4, 5])
     # d = split_mid(ll)
     # print(d)
-    d = split_into_two_lists(ll)
-    print('First List')
-    d[0].printAll()
-    print('Second List')
-    d[1].printAll()
+    # d = split_into_two_lists(ll)
+    # print('First List')
+    # d[0].printAll()
+    # print('Second List')
+    # d[1].printAll()
+    moveLastNodeToFront(ll)
