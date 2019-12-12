@@ -144,6 +144,25 @@ def split_mid(l: LinkedList):
         return {'Error': 'Can\'t be split to Front and Back'}
 
 
+def mergeSortedLLs(l1: LinkedList, l2: LinkedList):
+    n1 = l1.head
+    while(n1 and l2.head):
+        if n1.data > l2.head.data:
+            new_node = Node(n1.data)
+            new_node.next = n1.next
+            n1.next = new_node
+            n1.data = l2.head.data
+            l2.head = l2.head.next
+        if not n1.next:
+            break
+        n1 = n1.next
+    if l2.head:
+        n1.next = l2.head
+        l2.head = None
+    l1.printAll()
+    l2.printAll()
+
+
 if __name__ == "__main__":
     # ll = convertToLinkedList([1, 2, 3, 4, 5])
     # ll = convertToLinkedList([1, 8, 3, 2, 4, 6, 7, 5, 9])
@@ -158,6 +177,7 @@ if __name__ == "__main__":
     # moveLastNodeToFront(ll)
     # kth = findKthNodeFromEnd(ll, 5)
     # print(kth)
-    l1 = convertToLinkedList(list(range(1, 4, 1)))
-    l2 = convertToLinkedList(list(range(4, 9, 1)))
-    mergeAlternateNodes(l1, l2)
+    l1 = convertToLinkedList(list(range(1, 13, 2)))
+    l2 = convertToLinkedList(list(range(2, 18, 2)))
+    # mergeAlternateNodes(l1, l2)
+    mergeSortedLLs(l1, l2)
